@@ -96,7 +96,7 @@ if __name__ == '__main__':
             kind="bar",
             data=my_df,
             x="PerformanceFactor", y="TransactionTime", hue='StateSizeFactor',
-            ci="sd",
+            errorbar="sd",
             palette="dark", alpha=.6,
             height=4, aspect=1.8,
         )
@@ -115,7 +115,7 @@ if __name__ == '__main__':
             kind="bar",
             data=my_df,
             x="PerformanceFactor", y="TransactionTime", hue='TransactionName',
-            ci="sd",
+            errorbar="sd",
             palette="dark", alpha=.6,
             height=4, aspect=1.8,
         )
