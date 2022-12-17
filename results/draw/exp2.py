@@ -9,6 +9,8 @@ import matplotlib
 from matplotlib.ticker import PercentFormatter, ScalarFormatter
 import seaborn as sns
 
+from config import SAVE_FIG_FORMAT
+
 TX_SIG_NAME = {
     '620d4a67': 'Online (Original)',
     '8d691c8b': 'Commit',
@@ -16,8 +18,6 @@ TX_SIG_NAME = {
 TX_SIG = {y: x for x, y in TX_SIG_NAME.items()}
 
 CACHE_FILE = './cached-data.pkl'
-
-SAVE_FIG_FORMAT = 'pgf'
 
 
 def read_exp2(filename: str, gas: int, p: int) -> pd.DataFrame:

@@ -4,6 +4,8 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from config import SAVE_FIG_FORMAT
+
 # '60806040', contract deploy
 # 'ed554eb8', fund
 TX_SIG_KEYS = [
@@ -23,7 +25,6 @@ TX_SIG_FILENAME = {
     'Proof': 'proof',
 }
 
-SAVE_FIG_FORMAT = 'pgf'
 if __name__ == '__main__':
     sns.set_style('whitegrid')
     if SAVE_FIG_FORMAT == 'pgf':
