@@ -12,8 +12,8 @@ import seaborn as sns
 from config import SAVE_FIG_FORMAT
 
 TX_SIG_NAME = {
-    '620d4a67': 'Online (Original)',
-    '8d691c8b': 'Commit',
+    '620d4a67': 'Regular',
+    '8d691c8b': 'Latency-First',
 }
 TX_SIG = {y: x for x, y in TX_SIG_NAME.items()}
 
@@ -86,18 +86,18 @@ if __name__ == '__main__':
         hue=df['TransactionName'].astype(str)
             + ', Gas Limit = '
             + df['GasLimit'].astype(str)
-            + ', Performance Factor = '
+            + ', Workload Factor = '
             + df['PerformanceFactor'].astype(str),
         # stat="density", common_norm=False, bins=30,
         # palette="cubehelix",
-        alpha=.6,
+        alpha=1,
         height=3, aspect=2.8,  # multiple="dodge",
         kind='kde',
     )
     g.despine(left=True)
     g.set_axis_labels("Transaction Latency (s)")
     # https://seaborn.pydata.org/generated/seaborn.move_legend.html
-    sns.move_legend(g, "upper center", bbox_to_anchor=(0.45, 0.95))
+    sns.move_legend(g, "upper center", bbox_to_anchor=(0.49, 0.95))
     g.legend.set_title('')
     g.legend.set_frame_on(True)
     plt.savefig('output/fig-exp-2-kde-all.{}'.format(SAVE_FIG_FORMAT), bbox_inches='tight')
@@ -109,32 +109,43 @@ if __name__ == '__main__':
         for p in df_groupby_gas_p.groups.keys():
             my_df = df_groupby_gas_p.get_group(p)
             my_df = my_df[my_df['TransactionName'].isin(TX_SIG)]
-            g = sns.displot(
-                data=my_df,
-                x='TransactionLatency', hue='TransactionName',
-                # stat="density", common_norm=False, bins=30,
-                palette="dark", alpha=.6,
-                height=2, aspect=1.8,  # multiple="dodge",
-                kind='kde',
-            )
-            g.set_axis_labels("Transaction Latency (s)")
-            g.legend.set_title("Transaction")
-            sns.move_legend(g, "upper right", bbox_to_anchor=(0.675, 0.95))
-            g.legend.set_frame_on(True)
-            plt.savefig('output/fig-exp-2-kde-p{}-gas{}.{}'.format(int(p), int(gas), SAVE_FIG_FORMAT),
-                        bbox_inches='tight')
+            # g = sns.displot(
+            #     data=my_df,
+            #     x='TransactionLatency', hue='TransactionName',
+            #     # stat="density", common_norm=False, bins=30,
+            #     palette="dark", alpha=.6,
+            #     height=2, aspect=1.8,  # multiple="dodge",
+            #     kind='kde',
+            # )
+            # g.set_axis_labels("Transaction Latency (s)")
+            # g.legend.set_title("Transaction")
+            # sns.move_legend(g, "upper right", bbox_to_anchor=(0.675, 0.95))
+            # g.legend.set_frame_on(True)
+            # plt.savefig('output/fig-exp-2-kde-p{}-gas{}.{}'.format(int(p), int(gas), SAVE_FIG_FORMAT),
+            #             bbox_inches='tight')
 
             g = sns.displot(
                 data=my_df,
                 x='TransactionLatency', hue='TransactionName',
-                stat="density", common_norm=False, bins=30,
-                palette="cubehelix", alpha=.6,
-                height=2, aspect=1.8,  # multiple="dodge",
-                # kind='kde',
+                stat="proportion",  # 'count', 'density', 'percent', 'probability' or 'frequency'
+                common_norm=False,
+                bins=[float(x) for x in range(1, 30 + 1)],
+                # https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges
+                palette="cubehelix", alpha=1,
+                height=2, aspect=1.8,
+                kind='hist',
+                multiple="dodge",  # "layer", "stack", "fill", "dodge"
+                element="bars",  # "bars", "step", "poly"
+                # fill=True,
+                shrink=0.7,
+                # rug=True,
             )
             g.set_axis_labels("Transaction Latency (s)")
-            g.legend.set_title("Transaction")
-            sns.move_legend(g, "upper right", bbox_to_anchor=(0.675, 0.95))
+            g.legend.set_title("")
+            sns.move_legend(g, "upper right", bbox_to_anchor=(0.715, 0.94))
             g.legend.set_frame_on(True)
+            g.ax.set_ylim(0, 1)
+            g.tick_params()
+
             plt.savefig('output/fig-exp-2-hist-p{}-gas{}.{}'.format(int(p), int(gas), SAVE_FIG_FORMAT),
                         bbox_inches='tight')
