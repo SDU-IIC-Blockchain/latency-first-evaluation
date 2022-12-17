@@ -9,20 +9,20 @@ from config import SAVE_FIG_FORMAT
 # '60806040', contract deploy
 # 'ed554eb8', fund
 TX_SIG_KEYS = [
-    'Commit',
-    'Proof',
-    'Online (Original)',
+    'Latency-First Commit',
+    'Latency-First Proof',
+    'Regular',
 ]
 TX_SIG = {
-    'Online (Original)': '620d4a67',
-    'Commit': '8d691c8b',
-    'Proof': '6b6f7f34',
+    'Regular': '620d4a67',
+    'Latency-First Commit': '8d691c8b',
+    'Latency-First Proof': '6b6f7f34',
 }
 TX_SIG_NAME = {y: x for x, y in TX_SIG.items()}
 TX_SIG_FILENAME = {
-    'Online (Original)': 'online',
-    'Commit': 'commit',
-    'Proof': 'proof',
+    'Regular': 'online',
+    'Latency-First Commit': 'commit',
+    'Latency-First Proof': 'proof',
 }
 
 if __name__ == '__main__':
@@ -98,14 +98,14 @@ if __name__ == '__main__':
             data=my_df,
             x="PerformanceFactor", y="TransactionTime", hue='StateSizeFactor',
             errorbar="sd",
-            palette="dark", alpha=.6,
+            palette="hls", alpha=1,
             height=4, aspect=1.8,
         )
         g.despine(left=True)
-        g.set_axis_labels("Performance Factor", "CPU Time Cost (ms)")
+        g.set_axis_labels("Workload Factor", "CPU Time Cost (ms)")
         if i == len(TX_SIG_KEYS) - 1:
-            g.legend.set_title("State Size Factor")
-            sns.move_legend(g, "center right", bbox_to_anchor=(1.012, 0.5), ncol=1)
+            g.legend.set_title("IO Factor")
+            sns.move_legend(g, "center right", bbox_to_anchor=(0.95, 0.5), ncol=1)
             g.legend.set_frame_on(True)
         else:
             g.legend.remove()
@@ -117,11 +117,11 @@ if __name__ == '__main__':
             data=my_df,
             x="PerformanceFactor", y="TransactionTime", hue='TransactionName',
             errorbar="sd",
-            palette="dark", alpha=.6,
+            palette="hls", alpha=1,
             height=4, aspect=1.8,
         )
         g.despine(left=True)
-        g.set_axis_labels("Performance Factor", "CPU Time Cost (ms)")
+        g.set_axis_labels("Workload Factor", "CPU Time Cost (ms)")
         g.legend.set_title("Transaction")
         g.legend.set_frame_on(True)
         sns.move_legend(g, "upper left", bbox_to_anchor=(0.125, 0.95))
