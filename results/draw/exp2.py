@@ -94,10 +94,10 @@ if __name__ == '__main__':
         height=3, aspect=2.8,  # multiple="dodge",
         kind='kde',
     )
-    g.despine(left=True)
+    g.despine(top=False, right=False, left=False, bottom=False)
     g.set_axis_labels("Transaction Latency (s)")
     # https://seaborn.pydata.org/generated/seaborn.move_legend.html
-    sns.move_legend(g, "upper center", bbox_to_anchor=(0.49, 0.95))
+    sns.move_legend(g, "upper center", bbox_to_anchor=(0.49, 0.95), framealpha=1.0)
     g.legend.set_title('')
     g.legend.set_frame_on(True)
     plt.savefig('output/fig-exp-2-kde-all.{}'.format(SAVE_FIG_FORMAT), bbox_inches='tight')
@@ -140,9 +140,10 @@ if __name__ == '__main__':
                 shrink=0.7,
                 # rug=True,
             )
+            g.despine(top=False, right=False, left=False, bottom=False)
             g.set_axis_labels("Transaction Latency (s)")
             g.legend.set_title("")
-            sns.move_legend(g, "upper right", bbox_to_anchor=(0.715, 0.94))
+            sns.move_legend(g, "upper right", bbox_to_anchor=(0.712, 0.94), framealpha=1.0)
             g.legend.set_frame_on(True)
             g.ax.set_ylim(0, 1)
             g.tick_params()
