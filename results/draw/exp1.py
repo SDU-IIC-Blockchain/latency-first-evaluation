@@ -3,6 +3,7 @@ import parse
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn.axisgrid
 
 from config import SAVE_FIG_FORMAT
 
@@ -27,6 +28,7 @@ TX_SIG_FILENAME = {
 
 if __name__ == '__main__':
     sns.set_style('whitegrid')
+
     if SAVE_FIG_FORMAT == 'pgf':
         # https://matplotlib.org/stable/tutorials/text/pgf.html
         matplotlib.use('pgf')
@@ -93,7 +95,7 @@ if __name__ == '__main__':
     assert sorted(TX_SIG.keys()) == sorted(TX_SIG_KEYS)
     for i, sig in enumerate(TX_SIG_KEYS):
         my_df = df_by_tx[sig]
-        g = sns.catplot(
+        g: seaborn.axisgrid.FacetGrid = sns.catplot(
             kind="bar",
             data=my_df,
             x="PerformanceFactor", y="TransactionTime", hue='StateSizeFactor',
@@ -101,18 +103,19 @@ if __name__ == '__main__':
             palette="hls", alpha=1,
             height=4, aspect=1.8,
         )
-        g.despine(left=True)
+        g.despine(top=False, right=False, left=False, bottom=False)
         g.set_axis_labels("Workload Factor", "CPU Time Cost (ms)")
-        if i == len(TX_SIG_KEYS) - 1:
-            g.legend.set_title("IO Factor")
-            sns.move_legend(g, "center right", bbox_to_anchor=(0.95, 0.5), ncol=1)
-            g.legend.set_frame_on(True)
+        g.legend.set_title("IO Factor")
+        if sig == 'Latency-First Commit':
+            sns.move_legend(g, "center right", bbox_to_anchor=(0.615, 0.78), framealpha=1.0, ncol=3)
+            g.ax.set_ylim(0, 4.25)
         else:
-            g.legend.remove()
+            sns.move_legend(g, "center right", bbox_to_anchor=(0.605, 0.78), framealpha=1.0, ncol=3)
+        g.legend.set_frame_on(True)
         plt.savefig('output/fig-exp-1-{}.{}'.format(TX_SIG_FILENAME[sig], SAVE_FIG_FORMAT), bbox_inches='tight')
 
     for state_size, my_df in df_by_state_size.items():
-        g = sns.catplot(
+        g: seaborn.axisgrid.FacetGrid = sns.catplot(
             kind="bar",
             data=my_df,
             x="PerformanceFactor", y="TransactionTime", hue='TransactionName',
@@ -120,9 +123,9 @@ if __name__ == '__main__':
             palette="hls", alpha=1,
             height=4, aspect=1.8,
         )
-        g.despine(left=True)
+        g.despine(top=False, right=False, left=False, bottom=False)
         g.set_axis_labels("Workload Factor", "CPU Time Cost (ms)")
         g.legend.set_title("Transaction")
         g.legend.set_frame_on(True)
-        sns.move_legend(g, "upper left", bbox_to_anchor=(0.125, 0.95))
+        sns.move_legend(g, "upper left", bbox_to_anchor=(0.128, 0.95), framealpha=1.0)
         plt.savefig('output/fig-exp-1-s{}.{}'.format(int(state_size), SAVE_FIG_FORMAT), bbox_inches='tight')
