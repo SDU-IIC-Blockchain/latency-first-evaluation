@@ -11,19 +11,19 @@ from config import SAVE_FIG_FORMAT
 # 'ed554eb8', fund
 TX_SIG_KEYS = [
     'Latency-First Commit',
-    'Latency-First Proof',
+    'Latency-First Prove',
     'Regular',
 ]
 TX_SIG = {
     'Regular': '620d4a67',
     'Latency-First Commit': '8d691c8b',
-    'Latency-First Proof': '6b6f7f34',
+    'Latency-First Prove': '6b6f7f34',
 }
 TX_SIG_NAME = {y: x for x, y in TX_SIG.items()}
 TX_SIG_FILENAME = {
     'Regular': 'online',
     'Latency-First Commit': 'commit',
-    'Latency-First Proof': 'proof',
+    'Latency-First Prove': 'proof',
 }
 
 if __name__ == '__main__':
@@ -125,7 +125,7 @@ if __name__ == '__main__':
         )
         g.despine(top=False, right=False, left=False, bottom=False)
         g.set_axis_labels("Workload Factor", "CPU Time Cost (ms)")
-        g.legend.set_title("Transaction")
+        g.legend.set_title("")
         g.legend.set_frame_on(True)
         sns.move_legend(g, "upper left", bbox_to_anchor=(0.128, 0.95), framealpha=1.0)
         plt.savefig('output/fig-exp-1-s{}.{}'.format(int(state_size), SAVE_FIG_FORMAT), bbox_inches='tight')
