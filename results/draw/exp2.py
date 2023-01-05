@@ -132,7 +132,7 @@ if __name__ == '__main__':
                 bins=[float(x) for x in range(1, 30 + 1)],
                 # https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges
                 palette="cubehelix", alpha=1,
-                height=2, aspect=1.8,
+                height=2, aspect=2.8,
                 kind='hist',
                 multiple="dodge",  # "layer", "stack", "fill", "dodge"
                 element="bars",  # "bars", "step", "poly"
@@ -143,7 +143,7 @@ if __name__ == '__main__':
             g.despine(top=False, right=False, left=False, bottom=False)
             g.set_axis_labels("Transaction Latency (s)")
             g.legend.set_title("")
-            sns.move_legend(g, "upper right", bbox_to_anchor=(0.70, 0.94), framealpha=1.0)
+            sns.move_legend(g, "upper right", bbox_to_anchor=(0.78, 0.94), framealpha=1.0)
             g.legend.set_frame_on(True)
             g.ax.set_ylim(0, 1)
             g.tick_params()
