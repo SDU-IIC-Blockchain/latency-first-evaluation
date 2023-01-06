@@ -11,19 +11,19 @@ from config import SAVE_FIG_FORMAT
 # 'ed554eb8', fund
 TX_SIG_KEYS = [
     'Latency-First Commit',
-    'Latency-First Prove',
+    'Latency-First Verify',
     'Regular',
 ]
 TX_SIG = {
     'Regular': '620d4a67',
     'Latency-First Commit': '8d691c8b',
-    'Latency-First Prove': '6b6f7f34',
+    'Latency-First Verify': '6b6f7f34',
 }
 TX_SIG_NAME = {y: x for x, y in TX_SIG.items()}
 TX_SIG_FILENAME = {
     'Regular': 'online',
     'Latency-First Commit': 'commit',
-    'Latency-First Prove': 'proof',
+    'Latency-First Verify': 'proof',
 }
 
 if __name__ == '__main__':
