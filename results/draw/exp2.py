@@ -129,13 +129,13 @@ if __name__ == '__main__':
                 x='TransactionLatency', hue='TransactionName',
                 stat="proportion",  # 'count', 'density', 'percent', 'probability' or 'frequency'
                 common_norm=False,
-                bins=[float(x) for x in range(1, 30 + 1)],
                 # https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges
-                palette="cubehelix", alpha=1,
+                bins=[float(x) for x in range(0, 30 + 1)],  # [float(0.5*x) for x in range(0, 60)],
+                palette="cubehelix", alpha=0.1,
                 height=2, aspect=2.8,
                 kind='hist',
-                multiple="dodge",  # "layer", "stack", "fill", "dodge"
-                element="bars",  # "bars", "step", "poly"
+                multiple="layer",  # "layer", "stack", "fill", "dodge"
+                element="step",  # "bars", "step", "poly"
                 # fill=True,
                 shrink=0.7,
                 # rug=True,
@@ -146,6 +146,7 @@ if __name__ == '__main__':
             sns.move_legend(g, "upper right", bbox_to_anchor=(0.78, 0.94), framealpha=1.0)
             g.legend.set_frame_on(True)
             g.ax.set_ylim(0, 1)
+            g.ax.set_xticks([5 * x for x in range(0, 6 + 1)])
             g.tick_params()
 
             plt.savefig('output/fig-exp-2-hist-p{}-gas{}.{}'.format(int(p), int(gas), SAVE_FIG_FORMAT),
