@@ -10,20 +10,20 @@ from config import SAVE_FIG_FORMAT
 # '60806040', contract deploy
 # 'ed554eb8', fund
 TX_SIG_KEYS = [
-    'Latency-First Commit',
-    'Latency-First Verify',
+    'Latency-First $\mathtt{Store}$',
+    'Latency-First $\mathtt{Verify}$',
     'Regular',
 ]
 TX_SIG = {
     'Regular': '620d4a67',
-    'Latency-First Commit': '8d691c8b',
-    'Latency-First Verify': '6b6f7f34',
+    'Latency-First $\mathtt{Store}$': '8d691c8b',
+    'Latency-First $\mathtt{Verify}$': '6b6f7f34',
 }
 TX_SIG_NAME = {y: x for x, y in TX_SIG.items()}
 TX_SIG_FILENAME = {
     'Regular': 'online',
-    'Latency-First Commit': 'commit',
-    'Latency-First Verify': 'proof',
+    'Latency-First $\mathtt{Store}$': 'commit',
+    'Latency-First $\mathtt{Verify}$': 'proof',
 }
 
 if __name__ == '__main__':
@@ -106,7 +106,7 @@ if __name__ == '__main__':
         g.despine(top=False, right=False, left=False, bottom=False)
         g.set_axis_labels("Workload Factor", "CPU Time Cost (ms)")
         g.legend.set_title("IO Factor")
-        if sig == 'Latency-First Commit':
+        if sig == TX_SIG_KEYS[0]:
             sns.move_legend(g, "center right", bbox_to_anchor=(0.615, 0.78), framealpha=1.0, ncol=3)
             g.ax.set_ylim(0, 4.25)
         else:
