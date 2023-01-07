@@ -100,6 +100,7 @@ if __name__ == '__main__':
     sns.move_legend(g, "upper center", bbox_to_anchor=(0.46, 0.95), framealpha=1.0)
     g.legend.set_title('')
     g.legend.set_frame_on(True)
+    g.ax.set_xticks([5 * x for x in range(0, 10 + 1)])
     plt.savefig('output/fig-exp-2-kde-all.{}'.format(SAVE_FIG_FORMAT), bbox_inches='tight')
     # workaround: please manually do pdf cropping to this file
 
