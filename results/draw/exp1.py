@@ -10,20 +10,20 @@ from config import SAVE_FIG_FORMAT
 # '60806040', contract deploy
 # 'ed554eb8', fund
 TX_SIG_KEYS = [
-    'Latency-First $\mathtt{Store}$',
-    'Latency-First $\mathtt{VerProof}$',
+    'Latency-First $\mathtt{Commit}$',
+    'Latency-First $\mathtt{VerifyProof}$',
     'Regular',
 ]
 TX_SIG = {
     'Regular': '620d4a67',
-    'Latency-First $\mathtt{Store}$': '8d691c8b',
-    'Latency-First $\mathtt{VerProof}$': '6b6f7f34',
+    'Latency-First $\mathtt{Commit}$': '8d691c8b',
+    'Latency-First $\mathtt{VerifyProof}$': '6b6f7f34',
 }
 TX_SIG_NAME = {y: x for x, y in TX_SIG.items()}
 TX_SIG_FILENAME = {
     'Regular': 'online',
-    'Latency-First $\mathtt{Store}$': 'commit',
-    'Latency-First $\mathtt{VerProof}$': 'proof',
+    'Latency-First $\mathtt{Commit}$': 'commit',
+    'Latency-First $\mathtt{VerifyProof}$': 'proof',
 }
 
 if __name__ == '__main__':
